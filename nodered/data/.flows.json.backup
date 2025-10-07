@@ -1,0 +1,289 @@
+[
+    {
+        "id": "dc7b98d8c82523eb",
+        "type": "tab",
+        "label": "Fluxo 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "b117c6310d660fb6",
+        "type": "mqtt-broker",
+        "name": "Mosquitto",
+        "broker": "mosquitto",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "e9e92169d76e1bb5",
+        "type": "mongodb4-client",
+        "name": "",
+        "protocol": "mongodb",
+        "hostname": "mongo",
+        "port": "27017",
+        "dbName": "prova",
+        "appName": "",
+        "authSource": "",
+        "authMechanism": "DEFAULT",
+        "tls": false,
+        "tlsCAFile": "",
+        "tlsCertificateKeyFile": "",
+        "tlsInsecure": false,
+        "connectTimeoutMS": "30000",
+        "socketTimeoutMS": "0",
+        "minPoolSize": "0",
+        "maxPoolSize": "100",
+        "maxIdleTimeMS": "0",
+        "uri": "",
+        "advanced": "{}",
+        "uriTabActive": "tab-uri-simple"
+    },
+    {
+        "id": "5bf004c5413ac2c4",
+        "type": "postgreSQLConfig",
+        "name": "",
+        "host": "postgres",
+        "hostFieldType": "str",
+        "port": 5432,
+        "portFieldType": "num",
+        "database": "iot",
+        "databaseFieldType": "str",
+        "ssl": "false",
+        "sslFieldType": "bool",
+        "applicationName": "",
+        "applicationNameType": "str",
+        "max": 10,
+        "maxFieldType": "num",
+        "idle": 1000,
+        "idleFieldType": "num",
+        "connectionTimeout": 10000,
+        "connectionTimeoutFieldType": "num",
+        "user": "admin",
+        "userFieldType": "str",
+        "password": "admin",
+        "passwordFieldType": "str"
+    },
+    {
+        "id": "3b0b87d757088b6a",
+        "type": "mqtt in",
+        "z": "dc7b98d8c82523eb",
+        "name": "Device Info",
+        "topic": "device/+/info",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "b117c6310d660fb6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 120,
+        "y": 240,
+        "wires": [
+            [
+                "6ba055ef1327b929"
+            ]
+        ]
+    },
+    {
+        "id": "a0541b82e9527579",
+        "type": "mqtt in",
+        "z": "dc7b98d8c82523eb",
+        "name": "Device Status",
+        "topic": "device/+/status/temperature",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "b117c6310d660fb6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 360,
+        "wires": [
+            [
+                "079638e3076a0265"
+            ]
+        ]
+    },
+    {
+        "id": "e1e48c39d446582c",
+        "type": "mqtt out",
+        "z": "dc7b98d8c82523eb",
+        "name": "CMD Ligth",
+        "topic": "",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "b117c6310d660fb6",
+        "x": 910,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "2d93db4f878117b7",
+        "type": "postgresql",
+        "z": "dc7b98d8c82523eb",
+        "name": "PostgreSQL",
+        "query": "",
+        "postgreSQLConfig": "5bf004c5413ac2c4",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 910,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7af6f32d3cf2e64d",
+        "type": "mongodb4",
+        "z": "dc7b98d8c82523eb",
+        "clientNode": "e9e92169d76e1bb5",
+        "mode": "collection",
+        "collection": "",
+        "operation": "",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "Device",
+        "x": 890,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6ba055ef1327b929",
+        "type": "uuid",
+        "z": "dc7b98d8c82523eb",
+        "uuidVersion": "v4",
+        "namespaceType": "",
+        "namespace": "",
+        "namespaceCustom": "",
+        "name": "",
+        "field": "payload._id",
+        "fieldType": "msg",
+        "x": 330,
+        "y": 240,
+        "wires": [
+            [
+                "910b09faabe6a704"
+            ]
+        ]
+    },
+    {
+        "id": "079638e3076a0265",
+        "type": "uuid",
+        "z": "dc7b98d8c82523eb",
+        "uuidVersion": "v4",
+        "namespaceType": "",
+        "namespace": "",
+        "namespaceCustom": "",
+        "name": "",
+        "field": "payload._id",
+        "fieldType": "msg",
+        "x": 330,
+        "y": 360,
+        "wires": [
+            [
+                "499d00cbe24239e2"
+            ]
+        ]
+    },
+    {
+        "id": "910b09faabe6a704",
+        "type": "function",
+        "z": "dc7b98d8c82523eb",
+        "name": "Process Device Info",
+        "func": "msg.collection = \"devices\";\nmsg.operation = \"updateOne\";\n\nconst update = {\n  $set: {\n        device_id: msg.payload.device_id,\n        model: msg.payload.model || null,\n        ip_address: msg.payload.ip_address || null,\n        location: msg.payload.location || null,\n        updated_at: new Date(),\n        light: \"off\",\n        raw: JSON.stringify(msg.payload)\n  },\n    $setOnInsert: { _id: msg.payload._id, created_at: new Date() }\n}\n\nmsg.payload = [\n    { device_id: msg.payload.device_id },\n    update,\n    { upsert: true }\n]\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 240,
+        "wires": [
+            [
+                "7af6f32d3cf2e64d"
+            ]
+        ]
+    },
+    {
+        "id": "499d00cbe24239e2",
+        "type": "function",
+        "z": "dc7b98d8c82523eb",
+        "name": "Process Sensor Info",
+        "func": "const mongoDevice = {\n  collection: \"devices\",\n  operation: \"updateOne\",\n  payload: [\n    { device_id: msg.payload.device_id },\n    { $set: { light: msg.payload.temperature >= 5 ? \"on\" : \"off\" }}\n  ]\n}\n\nconst mongoTelemetry = {\n  collection: \"telemetry\",\n  operation: \"insertOne\",\n  payload: {\n    _id: msg.payload._id,\n    device_id: msg.payload.device_id,\n    temperature: msg.payload.temperature,\n    unit: msg.payload.unit,\n    created_at: new Date(),\n    updated_at: new Date(),\n    raw: JSON.stringify(msg.payload)\n  }\n}\n\nlet postgres = null;\nif (msg.payload.temperature >= 5) {\n  postgres = {\n    query: \"INSERT INTO alerts (id, device_id, temperature, created_at, reason) VALUES ($1, $2, $3, $4, $5)\",\n    params: [msg.payload._id, msg.payload.device_id, msg.payload.temperature, new Date(), \"ACIMA_5_GRAUS_CELSIUS\"]\n\n  }\n}\n\nconst command = {\n  topic: `device/${msg.payload.device_id}/cmd/light`,\n  qos: 1,\n  retain: false,\n  payload: {\n    device_id: msg.payload.device_id,\n    state: msg.payload.temperature >= 5 ? \"on\" : \"off\"\n  }\n}\n\nreturn [mongoDevice, mongoTelemetry, postgres, command];",
+        "outputs": 4,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 360,
+        "wires": [
+            [
+                "7af6f32d3cf2e64d"
+            ],
+            [
+                "4f3906e3597d57d3"
+            ],
+            [
+                "2d93db4f878117b7"
+            ],
+            [
+                "e1e48c39d446582c"
+            ]
+        ]
+    },
+    {
+        "id": "4f3906e3597d57d3",
+        "type": "mongodb4",
+        "z": "dc7b98d8c82523eb",
+        "clientNode": "e9e92169d76e1bb5",
+        "mode": "collection",
+        "collection": "",
+        "operation": "",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "Telemetry",
+        "x": 900,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    }
+]
